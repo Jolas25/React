@@ -1,0 +1,82 @@
+.App {
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+.counter{
+  background-color: #eee;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  &:hover{
+    background-color: rgb(218, 214, 214);
+  }
+}
+.count{
+  flex:  0 0 100%;
+  background-color: rgb(56, 55, 55);
+  color: #fff;
+  border-radius: 10px;
+}
+.buttons{
+  flex: 0 1 100%;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+}
+.button{
+  padding: 5px 15px;
+  font-size: 16px;
+  flex: 0 1 50%;
+  border-radius: 10px;
+  
+}
+.plus{
+  background-color: rgb(111, 231, 64);
+  border: 1px solid rgb(87, 214, 37);
+  transition: all 0.3s ease 0s;
+  &:hover{
+    background-color: rgb(87, 214, 37);
+  }
+}
+.minus{
+  background-color: rgb(231, 125, 64);
+  border: 1px solid rgb(209, 94, 27);
+  transition: all 0.3s ease 0s;
+  &:hover{
+    background-color: rgb(209, 94, 27);
+  }
+}
