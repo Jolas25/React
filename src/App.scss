@@ -65,6 +65,9 @@
   & h2{
     display: inline-block;
   }
+  & span{
+    cursor: pointer;
+  }
 }
 .show{
   display: block;
