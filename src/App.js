@@ -1,89 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.scss";
-
-const questions = [
-  {
-    title: "React - это ... ?",
-    variants: ["библиотека", "фреймворк", "приложение"],
-    correct: 0,
-  },
-  {
-    title: "Компонент - это ... ",
-    variants: [
-      "приложение",
-      "часть приложения или страницы",
-      "то, что я не знаю что такое",
-    ],
-    correct: 1,
-  },
-  {
-    title: "Что такое JSX?",
-    variants: [
-      "Это простой HTML",
-      "Это функция",
-      "Это тот же HTML, но с возможностью выполнять JS-код",
-    ],
-    correct: 2,
-  },
-];
-
-function Result({ correct }) {
-  return (
-    <div className="result">
-      <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" />
-      <h2>
-        Вы отгадали {correct} ответа из {questions.length}
-      </h2>
-      <a href="/">
-        <button>Попробовать снова</button>
-      </a>
-    </div>
-  );
-}
-
-function Game({ question, onClickVariant, step }) {
-  const percentage = Math.round((step / questions.length) * 100);
-
-  return (
-    <>
-      <div className="progress">
-        <div
-          style={{ width: `${percentage}%` }}
-          className="progress__inner"
-        ></div>
-      </div>
-      <h1>{question.title}</h1>
-      <ul>
-        {question.variants.map((text, index) => (
-          <li key={text} onClick={() => onClickVariant(index)}>
-            {text}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-}
+import { Success } from "./Components/Success";
+import { Users } from "./Components/Users/Index";
 
 function App() {
-  const [step, setStep] = useState(0);
-  const [correct, setCorrect] = useState(0);
-  const question = questions[step];
+  const [users, setUsers] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
+  const [invites, setInvites] = useState([]);
+  const [success, setSuccess] = useState(false);
 
-  function onClickVariant(index) {
-    console.log(step, index);
-    setStep(step + 1);
+  useEffect(() => {
+    fetch("https://reqres.in/api/users")
+      .then((res) => res.json())
+      .then((json) => setUsers(json.data))
+      .catch((err) => {
+        console.warn(err);
+        alert("Ошибка получения пользователей");
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-    if (index === question.correct) {
-      setCorrect(correct + 1);
+  const onChangeSearchValue = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  const onClickInvite = (id) => {
+    if (invites.includes(id)) {
+      setInvites((prev) => prev.filter((_id) => _id !== id));
+    } else {
+      setInvites((prev) => [...prev, id]);
     }
-  }
+  };
+
+  const onCLickSendInvites = () => {
+    setSuccess(true);
+  };
 
   return (
     <div className="App">
-      {step !== questions.length ? (
-        <Game step={step} question={question} onClickVariant={onClickVariant} />
+      {success ? (
+        <Success count={invites.length} />
       ) : (
-        <Result correct={correct} />
+        <Users
+          items={users}
+          isLoading={isLoading}
+          searchValue={searchValue}
+          onChangeSearchValue={onChangeSearchValue}
+          invites={invites}
+          onClickInvite={onClickInvite}
+          onCLickSendInvites={onCLickSendInvites}
+        />
       )}
     </div>
   );
