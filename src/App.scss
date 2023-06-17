@@ -32,3 +32,40 @@
 .App-link {
   color: #61dafb;
 }
+.modal{
+  display: none;
+  position: fixed;
+  left: 25%;
+  top: 25%;
+  background-color: rgb(88, 28, 28);
+  padding: 10px;
+  border-radius: 10px;
+  &__title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__button{
+    padding: 5px 10px;
+    background-color: rgb(145, 33, 179);
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    transition: all 0.3s ease 0s;
+    color: #000;
+    &:hover{
+      background-color: rgb(105, 14, 133);
+      color: #fff;
+    }
+  }
+  & img{
+    border-radius: 10px;
+    display: block;
+  }
+  & h2{
+    display: inline-block;
+  }
+}
+.show{
+  display: block;
+}

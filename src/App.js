@@ -8,13 +8,14 @@ function App() {
     <div className="App">
       <div className="modal__app">
         <button
+          className="modal__button"
           onClick={() => {
             setOpen(true);
           }}
         >
           Відкрити
         </button>
-        {open && <Modal open={open} />}
+        {open && <Modal open={open} setOpen={setOpen} />}
       </div>
     </div>
   );
